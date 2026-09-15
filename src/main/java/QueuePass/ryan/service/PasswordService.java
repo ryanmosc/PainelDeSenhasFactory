@@ -42,11 +42,18 @@ public class PasswordService {
         return senha;
     }
 
+    private int getPrioridadePeso(Senha s) {
+        return switch (s.getPasswordType()) {
+            case IDOSO -> 0;
+            case VIP -> 1;
+            case COMUM -> 2;
+        };
+    }
+
     public synchronized Senha chamarProximaSenha(String guiche) {
         Senha proxima = senhas.stream()
                 .filter(s -> s.getPasswordStatus() == PasswordStatus.AGUARDANDO)
-                .sorted(Comparator
-                        .comparing((Senha s) -> s.getPasswordType() == PasswordType.PRIORIDADE ? 0 : 1)
+                .sorted(Comparator.comparing(this::getPrioridadePeso)
                         .thenComparing(Senha::getCreatedAt))
                 .findFirst()
                 .orElse(null);
@@ -97,8 +104,7 @@ public class PasswordService {
     public List<Senha> listarAguardando() {
         return senhas.stream()
                 .filter(s -> s.getPasswordStatus() == PasswordStatus.AGUARDANDO)
-                .sorted(Comparator
-                        .comparing((Senha s) -> s.getPasswordType() == PasswordType.PRIORIDADE ? 0 : 1)
+                .sorted(Comparator.comparing(this::getPrioridadePeso)
                         .thenComparing(Senha::getCreatedAt))
                 .collect(Collectors.toList());
     }

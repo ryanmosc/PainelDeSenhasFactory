@@ -118,21 +118,55 @@
             justify-content: center;
             border-top: 3px solid #38bdf8;
             flex-wrap: wrap;
-        }
-        button {
-            padding: 14px 24px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.1s;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        header { background: #1e293b; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #334155; }
+        h1 { font-size: 24px; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
+        .header-info { display: flex; gap: 20px; font-size: 18px; color: #94a3b8; }
+        .online { color: #4ade80; }
+        .offline { color: #f87171; }
+        main { display: flex; flex: 1; padding: 20px; gap: 20px; overflow: hidden; }
+        .coluna-esquerda { flex: 2; display: flex; flex-direction: column; gap: 20px; }
+        .coluna-direita { flex: 1; background: #1e293b; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; }
+        .painel-atual { background: #1e293b; border-radius: 12px; padding: 40px; text-align: center; border: 2px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+        .painel-atual h2 { color: #94a3b8; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .senha-atual { font-size: 120px; font-weight: bold; color: #f8fafc; margin: 20px 0; text-shadow: 0 0 30px rgba(255,255,255,0.3); }
+        .senha-atual.idoso { color: #f43f5e; text-shadow: 0 0 30px rgba(244, 63, 94, 0.4); }
+        .senha-atual.vip { color: #fb923c; text-shadow: 0 0 30px rgba(251, 146, 60, 0.4); }
+        .senha-atual.comum { color: #4ade80; text-shadow: 0 0 30px rgba(74, 222, 128, 0.4); }
+        .guiche-atual { font-size: 40px; color: #38bdf8; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .stat-card { background: #1e293b; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-card .valor { font-size: 28px; font-weight: bold; color: #38bdf8; }
+        .stat-card .rotulo { font-size: 12px; color: #94a3b8; text-transform: uppercase; margin-top: 5px; }
+        .lista-historico { background: #1e293b; border-radius: 12px; padding: 20px; flex: 1; overflow-y: auto; }
+        .lista-historico h2 { color: #94a3b8; font-size: 16px; margin-bottom: 15px; text-transform: uppercase; }
+        .item-historico { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #334155; font-size: 20px; }
+        .item-historico:last-child { border-bottom: none; }
+        .item-historico.idoso { color: #f43f5e; }
+        .item-historico.vip { color: #fb923c; }
+        .item-historico.comum { color: #4ade80; }
+        .fila-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #0f172a; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid #4ade80; }
+        .fila-item.idoso { border-left-color: #f43f5e; }
+        .fila-item.vip { border-left-color: #fb923c; }
+        .fila-item .codigo { font-size: 18px; font-weight: bold; }
+        .fila-item .espera { font-size: 14px; color: #94a3b8; }
+        footer { background: #1e293b; padding: 20px 40px; display: flex; gap: 15px; border-top: 2px solid #334155; }
+        button { 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: transform 0.1s; 
         }
         button:active { transform: scale(0.96); }
-        .btn-normal { background: #4ade80; color: #0f172a; }
-        .btn-prioridade { background: #fb923c; color: #0f172a; }
-        .btn-chamar { background: #38bdf8; color: #0f172a; }
-        select { padding: 14px; border-radius: 8px; border: none; font-size: 16px; }
+        .btn-comum { background: #4ade80; color: #0f172a; }
+        .btn-vip { background: #fb923c; color: #0f172a; }
+        .btn-idoso { background: #f43f5e; color: #0f172a; }
+        .btn-chamar { background: #38bdf8; color: #0f172a; margin-left: auto; }
+        select { padding: 14px; border-radius: 8px; border: none; font-size: 16px; background: #0f172a; color: white; }
 
         @keyframes piscar {
             0%, 100% { opacity: 1; }
@@ -144,7 +178,7 @@
 <body>
 
 <header>
-    <h1>🎫 Painel de Senhas</h1>
+    <h1>🎫 QueuePass Painel</h1>
     <div class="header-info">
         <span id="statusConexao">conectando...</span>
         <span id="relogio"></span>
@@ -154,7 +188,7 @@
 <main>
     <div class="coluna-esquerda">
         <div class="painel-atual">
-            <h2>Senha Chamada</h2>
+            <h2>Senha Atual</h2>
             <div id="senhaAtual" class="senha-atual">--</div>
             <div id="guicheAtual" class="guiche-atual">Aguardando chamada...</div>
         </div>
@@ -177,22 +211,27 @@
                 <div class="rotulo">Tempo médio espera</div>
             </div>
         </div>
-
-        <div class="lista-historico">
-            <h2>Últimas Chamadas</h2>
-            <div id="historico"></div>
-        </div>
     </div>
 
-    <div class="coluna-direita lista-historico">
-        <h2>Fila de Espera (com previsão)</h2>
-        <div id="filaDetalhada"></div>
+    <div class="coluna-direita">
+        <h2>Histórico de Chamadas</h2>
+        <div class="lista-historico" id="historico">
+            <!-- Histórico preenchido via JS -->
+        </div>
     </div>
 </main>
 
+<main style="display:none;">
+    <!-- Elementos ocultos mantidos para compatibilidade com funções JS existentes se necessário -->
+</main>
+
+<div style="display:none;" id="filaDetalhada"></div>
+
 <footer>
-    <button class="btn-normal" onclick="gerarSenha('NORMAL')">+ Senha Normal</button>
-    <button class="btn-prioridade" onclick="gerarSenha('PRIORIDADE')">+ Senha Prioritária</button>
+    <button class="btn-comum" onclick="gerarSenha('COMUM')">+ Senha Comum</button>
+    <button class="btn-vip" onclick="gerarSenha('VIP')">+ Senha VIP</button>
+    <button class="btn-idoso" onclick="gerarSenha('IDOSO')">+ Senha Idoso</button>
+    
     <select id="guicheSelect">
         <option value="01">Guichê 01</option>
         <option value="02">Guichê 02</option>
@@ -219,7 +258,6 @@
             });
             const senha = await res.json();
             alert(`Senha gerada: ${senha.code}`);
-            // Não precisa recarregar manualmente: o SSE atualiza sozinho
         } catch (e) {
             alert('Erro ao gerar senha. Verifique se a API está rodando.');
             console.error(e);
@@ -252,7 +290,12 @@
     function exibirSenhaChamada(senha) {
         const el = document.getElementById('senhaAtual');
         el.textContent = senha.code;
-        el.className = 'senha-atual piscando' + (senha.passwordType === 'PRIORIDADE' ? ' prioridade' : '');
+        
+        let classeCor = 'comum';
+        if (senha.passwordType === 'IDOSO') classeCor = 'idoso';
+        else if (senha.passwordType === 'VIP') classeCor = 'vip';
+
+        el.className = `senha-atual piscando ${classeCor}`;
         document.getElementById('guicheAtual').textContent = `Guichê ${senha.guiche}`;
         setTimeout(() => el.classList.remove('piscando'), 4000);
     }
@@ -272,7 +315,12 @@
         container.innerHTML = '';
         lista.forEach(senha => {
             const div = document.createElement('div');
-            div.className = 'item-historico' + (senha.passwordType === 'PRIORIDADE' ? ' prioridade' : '');
+            
+            let classeCor = 'comum';
+            if (senha.passwordType === 'IDOSO') classeCor = 'idoso';
+            else if (senha.passwordType === 'VIP') classeCor = 'vip';
+
+            div.className = `item-historico ${classeCor}`;
             div.innerHTML = `<span>${senha.code}</span><span>Guichê ${senha.guiche}</span>`;
             container.appendChild(div);
         });
@@ -282,6 +330,7 @@
         const res = await fetch(`${API_URL}/senhas/aguardando/detalhado`);
         const lista = await res.json();
         const container = document.getElementById('filaDetalhada');
+        if (!container) return;
         container.innerHTML = '';
 
         if (lista.length === 0) {
@@ -291,8 +340,12 @@
 
         lista.forEach(item => {
             const div = document.createElement('div');
-            const prioridade = item.senha.passwordType === 'PRIORIDADE';
-            div.className = 'fila-item' + (prioridade ? ' prioridade' : '');
+            
+            let classeCor = 'comum';
+            if (item.senha.passwordType === 'IDOSO') classeCor = 'idoso';
+            else if (item.senha.passwordType === 'VIP') classeCor = 'vip';
+
+            div.className = `fila-item ${classeCor}`;
             div.innerHTML = `
                 <span class="codigo">${item.senha.code}</span>
                 <span>${item.posicaoNaFila}ª posição</span>
@@ -317,7 +370,6 @@
         carregarEstatisticas();
     }
 
-    // ===================== DIFERENCIAL: SSE (tempo real) =====================
     function conectarEventos() {
         const eventSource = new EventSource(`${API_URL}/eventos`);
         const statusEl = document.getElementById('statusConexao');
