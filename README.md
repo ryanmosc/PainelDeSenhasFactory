@@ -1,4 +1,4 @@
-# PainelSenhasFactory - Painel de Chamada de Senhas
+# PainelDeSenhasFactory - Painel de Chamada de Senhas
 
 Trabalho de Java focado na implementação do padrão de projeto **Factory Method** para a criação e chamada de senhas (Comum, Idoso e VIP).
 
