@@ -20,3 +20,6 @@ Caso não esteja conseguindo rodar o código sozinho pela IDE, rode esse comando
 
 ```bash
 ./mvnw.cmd spring-boot:run
+```
+
+Depois, abra o painel em `http://localhost:8080`.

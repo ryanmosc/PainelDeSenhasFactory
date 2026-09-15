@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <title>Painel de Senhas</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background: #0f172a; color: #f1f5f9; height: 100vh; display: flex; flex-direction: column; }
-
-        header {
-            background: #1e293b;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #38bdf8;
-        }
-        header h1 { font-size: 28px; color: #38bdf8; }
-        .header-info { display: flex; align-items: center; gap: 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        header { background: #1e293b; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #334155; }
+        header h1 { font-size: 28px; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
+        .header-info { display: flex; align-items: center; gap: 20px; font-size: 18px; color: #94a3b8; }
         #relogio { font-size: 20px; color: #9fb0c8; }
         #statusConexao {
             font-size: 13px;
@@ -27,107 +19,9 @@
         }
         #statusConexao.online { background: #14532d; color: #4ade80; }
         #statusConexao.offline { background: #450a0a; color: #f87171; }
-
-        main {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 20px;
-            padding: 20px 30px;
-            overflow: hidden;
-        }
-
-        .coluna-esquerda { display: flex; flex-direction: column; gap: 20px; overflow: hidden; }
-
-        .painel-atual {
-            background: #1e293b;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            border: 2px solid #334155;
-        }
-        .painel-atual h2 { color: #94a3b8; font-size: 16px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
-        .senha-atual {
-            font-size: 80px;
-            font-weight: bold;
-            color: #4ade80;
-            text-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
-        }
-        .senha-atual.prioridade { color: #fb923c; text-shadow: 0 0 20px rgba(251, 146, 60, 0.5); }
-        .guiche-atual { font-size: 26px; color: #f1f5f9; margin-top: 8px; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-        .stat-card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 18px;
-            border: 2px solid #334155;
-            text-align: center;
-        }
-        .stat-card .valor { font-size: 30px; font-weight: bold; color: #38bdf8; }
-        .stat-card .rotulo { font-size: 12px; color: #94a3b8; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-
-        .lista-historico {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 20px;
-            border: 2.5px solid #334155;
-            overflow-y: auto;
-        }
-        .lista-historico h2 { color: #94a3b8; font-size: 16px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
-        .item-historico {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            background: #0f172a;
-            border-radius: 8px;
-            font-size: 17px;
-            border-left: 4px solid #4ade80;
-        }
-        .item-historico.prioridade { border-left-color: #fb923c; }
-        .item-historico span:last-child { color: #94a3b8; font-size: 14px; }
-
-        .coluna-direita { overflow-y: auto; }
-        .fila-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            margin-bottom: 6px;
-            background: #0f172a;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        .fila-item .codigo { font-weight: bold; font-size: 16px; }
-        .fila-item.prioridade .codigo { color: #fb923c; }
-        .fila-item .espera { color: #94a3b8; font-size: 13px; }
-
-        footer {
-            background: #1e293b;
-            padding: 18px 30px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            border-top: 3px solid #38bdf8;
-            flex-wrap: wrap;
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        header { background: #1e293b; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #334155; }
-        h1 { font-size: 24px; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
-        .header-info { display: flex; gap: 20px; font-size: 18px; color: #94a3b8; }
-        .online { color: #4ade80; }
-        .offline { color: #f87171; }
         main { display: flex; flex: 1; padding: 20px; gap: 20px; overflow: hidden; }
-        .coluna-esquerda { flex: 2; display: flex; flex-direction: column; gap: 20px; }
-        .coluna-direita { flex: 1; background: #1e293b; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; }
+        .coluna-esquerda { flex: 2; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+        .coluna-direita { flex: 1; min-width: 0; background: #1e293b; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; overflow: hidden; gap: 10px; }
         .painel-atual { background: #1e293b; border-radius: 12px; padding: 40px; text-align: center; border: 2px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
         .painel-atual h2 { color: #94a3b8; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; }
         .senha-atual { font-size: 120px; font-weight: bold; color: #f8fafc; margin: 20px 0; text-shadow: 0 0 30px rgba(255,255,255,0.3); }
@@ -136,11 +30,11 @@
         .senha-atual.comum { color: #4ade80; text-shadow: 0 0 30px rgba(74, 222, 128, 0.4); }
         .guiche-atual { font-size: 40px; color: #38bdf8; }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .stat-card { background: #1e293b; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-card { background: #1e293b; padding: 20px; border-radius: 12px; text-align: center; border: 2px solid #334155; }
         .stat-card .valor { font-size: 28px; font-weight: bold; color: #38bdf8; }
         .stat-card .rotulo { font-size: 12px; color: #94a3b8; text-transform: uppercase; margin-top: 5px; }
-        .lista-historico { background: #1e293b; border-radius: 12px; padding: 20px; flex: 1; overflow-y: auto; }
-        .lista-historico h2 { color: #94a3b8; font-size: 16px; margin-bottom: 15px; text-transform: uppercase; }
+        .coluna-direita h2 { color: #94a3b8; font-size: 16px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
+        .lista-historico, .lista-fila { flex: 1; overflow-y: auto; min-height: 0; }
         .item-historico { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #334155; font-size: 20px; }
         .item-historico:last-child { border-bottom: none; }
         .item-historico.idoso { color: #f73958; }
@@ -151,15 +45,15 @@
         .fila-item.vip { border-left-color: #fb923c; }
         .fila-item .codigo { font-size: 18px; font-weight: bold; }
         .fila-item .espera { font-size: 14px; color: #94a3b8; }
-        footer { background: #1e293b; padding: 20px 40px; display: flex; gap: 15px; border-top: 2px solid #334155; }
-        button { 
-            padding: 15px 30px; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: transform 0.1s; 
+        footer { background: #1e293b; padding: 20px 40px; display: flex; gap: 15px; border-top: 2px solid #334155; flex-wrap: wrap; align-items: center; }
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
         button:active { transform: scale(0.96); }
         .btn-comum { background: #30dd6f; color: #0f172a; }
@@ -214,24 +108,18 @@
     </div>
 
     <div class="coluna-direita">
+        <h2>Fila de Espera</h2>
+        <div class="lista-fila" id="filaDetalhada"></div>
         <h2>Histórico de Chamadas</h2>
-        <div class="lista-historico" id="historico">
-            <!-- Histórico preenchido via JS -->
-        </div>
+        <div class="lista-historico" id="historico"></div>
     </div>
 </main>
-
-<main style="display:none;">
-    <!-- Elementos ocultos mantidos para compatibilidade com funções JS existentes se necessário -->
-</main>
-
-<div style="display:none;" id="filaDetalhada"></div>
 
 <footer>
     <button class="btn-comum" onclick="gerarSenha('COMUM')">+ Senha Comum</button>
     <button class="btn-vip" onclick="gerarSenha('VIP')">+ Senha VIP</button>
     <button class="btn-idoso" onclick="gerarSenha('IDOSO')">+ Senha Idoso</button>
-    
+
     <select id="guicheSelect">
         <option value="01">Guichê 01</option>
         <option value="02">Guichê 02</option>
@@ -290,7 +178,7 @@
     function exibirSenhaChamada(senha) {
         const el = document.getElementById('senhaAtual');
         el.textContent = senha.code;
-        
+
         let classeCor = 'comum';
         if (senha.passwordType === 'IDOSO') classeCor = 'idoso';
         else if (senha.passwordType === 'VIP') classeCor = 'vip';
@@ -315,7 +203,7 @@
         container.innerHTML = '';
         lista.forEach(senha => {
             const div = document.createElement('div');
-            
+
             let classeCor = 'comum';
             if (senha.passwordType === 'IDOSO') classeCor = 'idoso';
             else if (senha.passwordType === 'VIP') classeCor = 'vip';
@@ -340,7 +228,7 @@
 
         lista.forEach(item => {
             const div = document.createElement('div');
-            
+
             let classeCor = 'comum';
             if (item.senha.passwordType === 'IDOSO') classeCor = 'idoso';
             else if (item.senha.passwordType === 'VIP') classeCor = 'vip';
