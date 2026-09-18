@@ -15,6 +15,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
+//Comentarios
+
 class SenhaFactoryTest {
 
     private SenhaComumCreator comumCreator;
